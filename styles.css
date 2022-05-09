@@ -47,10 +47,6 @@ button:hover {
     width: 13rem;
 }
 
-.content button:hover {
-    background-color: #D0C9C0;
-}
-
 .footer {
     position: absolute;
     bottom: 0;
@@ -58,6 +54,68 @@ button:hover {
     text-align: center;
     font-weight: bold;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.pop-up {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%) scale(0.1);
+    visibility: hidden;
+    background-color: #EFEAD8;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .75rem;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.open-pop-up {
+    transform: translate(50%, -50%) scale(1);
+    visibility: visible;
+}
+.pop-up form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+}
+
+.pop-up input {
+    border-radius: 5px;
+    border: none;
+    padding: 0.5rem;
+    margin: 5px 10px;;
+    width: 250px;
+    height: 1.5rem;
+}
+
+.pop-up .isRead input {
+    width: 20px;
+    height: 20px;
+}
+
+.isRead {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.pop-up button {
+    background-color: #B4FF9F;
+    width: 250px;
+    height: 60px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.25rem;
 }
 
 button:hover {
