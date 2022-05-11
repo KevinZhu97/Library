@@ -1,9 +1,11 @@
+bookGrid = document.querySelector('.books-grid')
+
 // Book constructor
 function Book(title, author, pages, read) {
     this.title = title
     this.author = author 
     this.pages = pages 
-    this.isRead = read
+    this.isRead = read    
 }
 
 //Store books in an array
@@ -52,12 +54,16 @@ function retrieveData() {
     }
     closePopup()
     };
-    myLibrary.forEach(addBookElement)
+    resetBookGrid();
+    myLibrary.forEach(createBookElement)
 };
 
-//Loop through myLibrary and create "books" elements on HTML
-function addBookElement(item, index, array) {
+var gridContainer = document.querySelector('.books-grid');
+
+//Create a callbackfunction that creates "book" element for myLibrary to loop
+function createBookElement(item) {
     const newBookElement = document.createElement('div');
+    newBookElement.classList.add('stored-book')
     const titlePara = document.createElement('p')
     titlePara.innerText = `"${item.title}"`
     newBookElement.appendChild(titlePara)
@@ -65,21 +71,44 @@ function addBookElement(item, index, array) {
     authorPara.innerText = `${item.author}`
     newBookElement.appendChild(authorPara)
     const pagesPara = document.createElement('p')
-    pagesPara.innerText = `item.pages`
+    pagesPara.innerText = `${item.pages}`
     newBookElement.appendChild(pagesPara)    
-    var gridContainer = document.querySelector('.books-grid');
     gridContainer.appendChild(newBookElement);
+    const buttonGroup = document.createElement('div')
+    buttonGroup.classList.add('button-group')
+    const didRead = document.createElement('button')
+    if (item.isRead == true) {
+        didRead.innerText = "Read"
+        didRead.classList.add('btn-did-read')
+    } else {
+        didRead.innerText = "Not Read"
+        didRead.classList.add('btn-did-not-read')
+    }
+    didRead.addEventListener('click', () => {
+        if (didRead.innerText === "Read") {
+            didRead.innerText = "Not Read"
+            didRead.classList.remove('btn-did-read')
+            didRead.classList.add('btn-did-not-read')
+        } else {
+            didRead.innerText = "Read";
+            didRead.classList.remove('btn-did-not-read')
+            didRead.classList.add('btn-did-read')
+        }
+    })
+    const removeButton = document.createElement('button')
+    removeButton.addEventListener('click', () => {
+        bookGrid.removeChild(newBookElement);
+        myLibrary.splice(newBookElement, 1);
+    });
+    removeButton.innerText = "Remove";
+    removeButton.classList.add('remove-button');
+    buttonGroup.appendChild(didRead)
+    buttonGroup.appendChild(removeButton)
+    newBookElement.appendChild(buttonGroup);
+    
 }
 
-//Create callback function for the array.forEach()
-
-
-
-
-
-
-// myLibrary.forEach(addBookElement());
-
-// newBookElement.innerText = `"${newBook.title}"`
-// newBookElement.innerText = `${newBook.author}`
-// newBookElement.innerText = `${newBook.pages}`
+//Reset book grid for new update
+function resetBookGrid() {
+    gridContainer.innerHTML = '';
+}
